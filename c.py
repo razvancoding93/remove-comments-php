@@ -20,13 +20,14 @@ def create_directory(directory_name):
 	# define the access rights
 	access_rights = 0o755
 
-	try:
-		os.mkdir(directory_name, access_rights)
-	except OSError:
-		print ("Creation of the directory %s failed" % directory_name)
-	else:
-		print ("Successfully created the directory %s" % directory_name)
+	if(os.path.isdir('./' + directory_name) != True):
+		try:
+			os.mkdir(directory_name, access_rights)
+		except OSError:
+			print ("Creation of the directory %s failed" % directory_name)
+		else:
+			print ("Successfully created the directory %s" % directory_name)
 		
-create_directory('test');
+create_directory('test')
 
 input("Press enter to exit ;)")
