@@ -1,41 +1,36 @@
 import os
 
-file = open('test.txt', 'r')
-chars = ''
-previous_char = ''
-comment_opened = False
+def remove_comments_from_file(filename):
 
-while 1:
-	# read file char by char and break at end
-	char = file.read(1)
-	if not char: break
+	file = open(filename, 'r')
+	chars = ''
+	previous_char = ''
+	comment_opened = False
 
-	# detect comment
-	if previous_char + char == '/*':
-		comment_opened = True
-		chars = chars[:-1]
-	elif previous_char + char == '*/':
-		comment_opened = False
+	while 1:
+		# read file char by char and break at end
+		char = file.read(1)
+		if not char: break
 
-	# if comment not detected add content to file
-	if comment_opened == False and previous_char + char != '*/':
-		chars += char
+		# detect comment
+		if previous_char + char == '/*':
+			comment_opened = True
+			chars = chars[:-1]
+		elif previous_char + char == '*/':
+			comment_opened = False
 
-	previous_char = char
+		# if comment not detected add content to file
+		if comment_opened == False and previous_char + char != '*/':
+			chars += char
 
-	# if previous_char + char == '*/':
-	# 	chars = chars[:-1]
-print(chars)
+		previous_char = char
 
-file.close()
+		# if previous_char + char == '*/':
+		# 	chars = chars[:-1]
+	print(chars)
+	file.close()
 
-def compile(content):
-	f = open("guru99.txt","w+")
-	f.write(content)
-	f.close()
-
-# compile(file)
-
+	return chars
 
 def create_directory(directory_name):
 	# define the access rights
@@ -48,7 +43,14 @@ def create_directory(directory_name):
 			print ("Creation of the directory %s failed" % directory_name)
 		else:
 			print ("Successfully created the directory %s" % directory_name)
-		
-create_directory('test')
+
+def compile(filename):
+	content = remove_comments_from_file(filename)
+	create_directory("compiled")
+	f = open("./compiled/"+ filename, "w+")
+	f.write(content)
+	f.close()
+
+compile('test.txt')
 
 input("Press enter to exit ;)")
