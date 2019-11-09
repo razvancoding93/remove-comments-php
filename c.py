@@ -1,17 +1,38 @@
 import os
 
 file = open('test.txt', 'r')
-#print(file.read(2))
+chars = ''
+previous_char = ''
+comment_opened = False
 
 while 1:
-	char = file.read(1)          # read by character
+	# read file char by char and break at end
+	char = file.read(1)
 	if not char: break
-	print(char),
+
+	# detect comment
+	if previous_char + char == '/*':
+		comment_opened = True
+		chars = chars[:-1]
+	elif previous_char + char == '*/':
+		comment_opened = False
+
+	# if comment not detected add content to file
+	if comment_opened == False and previous_char + char != '*/':
+		chars += char
+
+	previous_char = char
+
+	# if previous_char + char == '*/':
+	# 	chars = chars[:-1]
+print(chars)
 
 file.close()
 
-def compile(file):
-	f= open("guru99.txt","w+")
+def compile(content):
+	f = open("guru99.txt","w+")
+	f.write(content)
+	f.close()
 
 # compile(file)
 
