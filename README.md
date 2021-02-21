@@ -1,6 +1,6 @@
 1. Put your php project in "project" folder,
-2. Run c.py
+2. Run c.py from cmd.
 
-Now your project will be copyed in 'compiled' folder with all php files inside without comments
+Now your project will be copyed in 'compiled' folder with all php files having comments removed.
 
-After using this code, test your project, there can be bugs, I covered a lot of em.
+There might be bugs that I didn't find yet.
